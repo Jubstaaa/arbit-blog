@@ -70,11 +70,11 @@ export const deletePostRedux = async (post, dispatch, navigate) => {
   await axios
     .delete(`https://jsonplaceholder.typicode.com/posts/${post.id}`)
     .then(function (response) {
+      navigate("/");
       dispatch(deletePost(post.id));
       toast.success("Post deleted", {
         id: loading,
       });
-      navigate("/");
     })
     .catch(function (error) {
       toast.error("Post could not be deleted", {

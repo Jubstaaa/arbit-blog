@@ -19,11 +19,13 @@ import { toast } from "react-hot-toast";
 
 function PostForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { postId } = useParams();
   const { posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
+
   const post = posts?.find((post) => post.id == postId);
-  const navigate = useNavigate();
   const isEditMode = postId ? true : false;
 
   const goBack = () => {
@@ -93,12 +95,7 @@ function PostForm() {
                         type="textarea"
                         className="text-xl font-bold"
                       />
-                      <Input
-                        label="Detail"
-                        name="body"
-                        type="textarea"
-                        disabled={isEditMode}
-                      />
+                      <Input label="Detail" name="body" type="textarea" />
 
                       <div className="flex justify-end items-center w-full space-x-9">
                         {isEditMode && (
