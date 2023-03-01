@@ -4,9 +4,9 @@ import Header from "components/Header";
 
 function Layout() {
   return (
-    <div className="w-screen h-screen px-11 py-7 bg-neutral-100 space-y-4">
+    <div className="w-full h-full px-6 sm:px-11 py-7 bg-transparent space-y-4">
       <Header />
-      <div className="w-full h-auto bg-white p-8">
+      <div className="w-full h-auto bg-white p-4 sm:p-8">
         <Outlet />
       </div>
     </div>

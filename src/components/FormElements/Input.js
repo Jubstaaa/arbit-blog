@@ -11,7 +11,7 @@ function Input(props) {
         id={props.name}
         name={props.name}
         as={props.type || "input"}
-        className={`w-full h-32 py-4 px-5 border border-gray-200 rounded-md shadow-sm resize-none outline-none disabled:text-gray-500 disabled:bg-gray-100 ${props.className}`}
+        className={`w-full h-32 py-2 px-3 sm:py-4 sm:px-5 border border-gray-200 rounded-md shadow-sm resize-none outline-none disabled:text-gray-500 disabled:bg-gray-100 ${props.className}`}
         disabled={props.disabled}
         required={props.required}
       ></Field>

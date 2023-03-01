@@ -16,7 +16,7 @@ function Header() {
             src="/images/logo.png"
             alt="Arbit Blog Logo"
           />
-          <h1 className="text-2xl font-semibold">Arbit Blog</h1>
+          <h1 className="hidden sm:block text-2xl font-semibold">Arbit Blog</h1>
         </div>
       </Link>
       <div className="flex justify-end items-center space-x-4">
@@ -33,10 +33,10 @@ function Header() {
             {posts?.length}
           </div>
         </Link>
-        <HiBell className="h-7 w-7 text-gray-500" />
-        <HiViewGrid className="h-7 w-7 text-gray-500" />
+        <HiBell className="h-7 w-7 hidden sm:block text-gray-500" />
+        <HiViewGrid className="h-7 w-7 hidden sm:block text-gray-500" />
         <img
-          className="w-10 h-10 rounded-full"
+          className="w-10 h-10 hidden sm:block rounded-full"
           src={user.photoUrl}
           alt="İlker Balcılar"
         />

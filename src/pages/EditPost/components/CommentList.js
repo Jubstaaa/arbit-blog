@@ -1,14 +1,29 @@
-import CommentItem from "./CommentItem";
+import { useState, useEffect } from "react";
 
-function CommentList({ comments }) {
-  return (
-    <div className="w-full flex flex-col justify-center items-start px-5 space-y-3">
-      <h2 className="text-2xl font-semibold">Comments</h2>
-      {comments.map((comment) => (
-        <CommentItem key={comment.id} comment={comment} />
-      ))}
-    </div>
-  );
+import { getCommentsById } from "utils";
+import CommentItem from "./CommentItem";
+import CommentsLoading from "./CommentsLoading";
+
+function CommentList({ postId }) {
+  const [comments, setComments] = useState(null);
+
+  useEffect(() => {
+    getCommentsById(postId, setComments);
+  }, []);
+
+  if (!comments) {
+    return <CommentsLoading />;
+  } else if (comments.length === 0) {
+    return <h2>No Comments Found!</h2>;
+  } else {
+    return (
+      <>
+        {comments.map((comment) => (
+          <CommentItem key={comment.id} comment={comment} />
+        ))}
+      </>
+    );
+  }
 }
 
 export default CommentList;
