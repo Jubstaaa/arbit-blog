@@ -59,7 +59,16 @@ export const updatePostRedux = async (post, user, values, dispatch) => {
       });
     })
     .catch(function (error) {
-      toast.error("Post could not be updated", {
+      toast.error("Server error.");
+      dispatch(
+        updatePost({
+          userId: user.id,
+          id: post.id,
+          title: values.title,
+          body: values.body,
+        })
+      );
+      toast.success("Post updated", {
         id: loading,
       });
     });
