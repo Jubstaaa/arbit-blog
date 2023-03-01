@@ -7,6 +7,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { useSelector, useDispatch } from "react-redux";
+import { Helmet } from "react-helmet-async";
 
 import Input from "components/FormElements/Input";
 import Button from "components/FormElements/Button";
@@ -48,84 +49,90 @@ function PostForm() {
     return <ErrorPage />;
   } else {
     return (
-      <div className="flex flex-col lg:flex-row justify-start items-start w-full space-x-0 lg:space-x-4 space-y-4 lg:space-y-0">
-        <div className="flex justify-start items-start w-full space-x-0 lg:space-x-4">
-          <div
-            className="h-full hidden lg:block bg-gray-200 p-2 rounded-full cursor-pointer"
-            onClick={goBack}
-          >
-            <HiOutlineArrowNarrowLeft className="w-6 h-6" />
-          </div>
-          <div className="w-full space-y-5">
-            <div className="flex justify-between items-center ">
-              <h2 className="text-2xl font-semibold">
-                {!isEditMode ? "New Post" : "Post"}
-              </h2>
-              {isEditMode && (
-                <Button
-                  blue
-                  to="/post/add"
-                  icon={<HiOutlinePlusSm className="w-6 h-6" />}
-                >
-                  New Post
-                </Button>
-              )}
-            </div>
-            <Formik
-              validationSchema={PostSchema}
-              initialValues={{
-                title: post?.title,
-                body: post?.body,
-              }}
-            >
-              {({ values, errors }) => (
-                <Form onSubmit={(e) => handleSubmit(e, values, errors)}>
-                  <div className="w-full flex flex-col justify-start items-start space-y-2">
-                    <Input
-                      label="Title"
-                      name="title"
-                      type="textarea"
-                      className="text-xl font-bold"
-                    />
-                    <Input
-                      label="Detail"
-                      name="body"
-                      type="textarea"
-                      disabled={isEditMode}
-                    />
+      <>
+        <Helmet>
+          <title>{isEditMode ? post.title : "New Post"}</title>
+        </Helmet>
 
-                    <div className="flex justify-end items-center w-full space-x-9">
-                      {isEditMode && (
+        <div className="flex flex-col lg:flex-row justify-start items-start w-full space-x-0 lg:space-x-4 space-y-4 lg:space-y-0">
+          <div className="flex justify-start items-start w-full space-x-0 lg:space-x-4">
+            <div
+              className="h-full hidden lg:block bg-gray-200 p-2 rounded-full cursor-pointer"
+              onClick={goBack}
+            >
+              <HiOutlineArrowNarrowLeft className="w-6 h-6" />
+            </div>
+            <div className="w-full space-y-5">
+              <div className="flex justify-between items-center ">
+                <h2 className="text-2xl font-semibold">
+                  {!isEditMode ? "New Post" : "Post"}
+                </h2>
+                {isEditMode && (
+                  <Button
+                    blue
+                    to="/post/add"
+                    icon={<HiOutlinePlusSm className="w-6 h-6" />}
+                  >
+                    New Post
+                  </Button>
+                )}
+              </div>
+              <Formik
+                validationSchema={PostSchema}
+                initialValues={{
+                  title: post?.title,
+                  body: post?.body,
+                }}
+              >
+                {({ values, errors }) => (
+                  <Form onSubmit={(e) => handleSubmit(e, values, errors)}>
+                    <div className="w-full flex flex-col justify-start items-start space-y-2">
+                      <Input
+                        label="Title"
+                        name="title"
+                        type="textarea"
+                        className="text-xl font-bold"
+                      />
+                      <Input
+                        label="Detail"
+                        name="body"
+                        type="textarea"
+                        disabled={isEditMode}
+                      />
+
+                      <div className="flex justify-end items-center w-full space-x-9">
+                        {isEditMode && (
+                          <Button
+                            red
+                            type="button"
+                            onClick={deletePostHandler}
+                            icon={<HiTrash className="w-6 h-6" />}
+                          >
+                            Delete
+                          </Button>
+                        )}
                         <Button
-                          red
-                          type="button"
-                          onClick={deletePostHandler}
-                          icon={<HiTrash className="w-6 h-6" />}
+                          blue
+                          type="submit"
+                          icon={<HiPencil className="w-6 h-6" />}
                         >
-                          Delete
+                          {!isEditMode ? "Create" : "Update"}
                         </Button>
-                      )}
-                      <Button
-                        blue
-                        type="submit"
-                        icon={<HiPencil className="w-6 h-6" />}
-                      >
-                        {!isEditMode ? "Create" : "Update"}
-                      </Button>
+                      </div>
                     </div>
-                  </div>
-                </Form>
-              )}
-            </Formik>
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </div>
+          {isEditMode && (
+            <div className="w-full flex flex-col justify-center items-start px-0 lg:px-5 space-y-3">
+              <h2 className="text-2xl font-semibold">Comments</h2>
+              <CommentList postId={post.id} />
+            </div>
+          )}
         </div>
-        {isEditMode && (
-          <div className="w-full flex flex-col justify-center items-start px-0 lg:px-5 space-y-3">
-            <h2 className="text-2xl font-semibold">Comments</h2>
-            <CommentList postId={post.id} />
-          </div>
-        )}
-      </div>
+      </>
     );
   }
 }
