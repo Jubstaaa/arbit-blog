@@ -1,6 +1,6 @@
 # Arbit Blog
 
-![Imgur](https://i.imgur.com/Ny4GyDR.png)
+![Imgur](https://i.imgur.com/FyHlxNw.png)
 
 > Click to view live demo
 > (https://jubstaa-arbit-blog.netlify.app/)
